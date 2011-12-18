@@ -16,15 +16,13 @@ frame = None
 
 class RequestThread (threading.Thread):
     
-    frame = None
-    
     def run(self):
         global frame
         while True:
-            self.frame = frame;
-            if self.frame is not None:
+            frame_copy = frame;
+            if frame_copy is not None:
                 temp_file_name = tempfile.NamedTemporaryFile(suffix=".jpg").name
-                cv.SaveImage(temp_file_name, self.frame)
+                cv.SaveImage(temp_file_name, frame_copy)
                 print client.faces_detect(file_name=temp_file_name)
         
         
